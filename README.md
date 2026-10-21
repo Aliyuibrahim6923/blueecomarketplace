@@ -26,6 +26,7 @@ operators. Built for a controlled pilot.
 - **Listings** — create, edit, publish, pause, archive; photos compressed on the phone then stored in Supabase
   Storage; fixed price or price-on-request; origin/handling/certificates shown as *self-declared*; automatic expiry
   with one-tap "still available".
+- **Public market (`/market`)** — login-free storefront: browse, search and filter listings, open a listing and contact the seller by WhatsApp, phone or email (only details the seller made public). No accounts, cart or tracking.
 - **Discovery** — keyword search (products + suppliers), filters (category, state, product state, price, delivery
   option, verified, fixed price), sorting, pagination, empty/loading/error states.
 - **Buying** — cart split per supplier, order requests, enquiries, quotations (accept → order), saved products,

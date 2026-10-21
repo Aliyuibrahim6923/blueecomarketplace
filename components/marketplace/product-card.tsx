@@ -20,10 +20,10 @@ export function Price({ priceMinor, currency, unit, pricingType }: { priceMinor:
   );
 }
 
-export function ProductCard({ product }: { product: SearchResult }) {
+export function ProductCard({ product, hrefBase = "/products" }: { product: SearchResult; hrefBase?: string }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-border bg-white shadow-xs transition hover:shadow-md">
-      <Link href={`/products/${product.id}`} className="flex flex-1 flex-col focus:outline-none">
+      <Link href={`${hrefBase}/${product.id}`} className="flex flex-1 flex-col focus:outline-none">
         <ProductImage path={product.cover_image_path} alt={product.name} />
         <div className="flex flex-1 flex-col gap-2 p-4">
           <div className="flex flex-wrap items-center gap-1.5">
