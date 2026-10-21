@@ -40,6 +40,7 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: |
+          set -o pipefail
           mkdir -p ci-reports
           if [ -f package-lock.json ]; then npm ci 2>&1 | tee ci-reports/install.txt; else npm install --no-audit --no-fund 2>&1 | tee ci-reports/install.txt; fi
           npm ls --depth=0 > ci-reports/versions.txt 2>&1 || true
