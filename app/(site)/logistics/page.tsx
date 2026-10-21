@@ -14,6 +14,7 @@ export default async function LogisticsDirectoryPage({ searchParams }: { searchP
   const sp = await searchParams;
   const type = LOGISTICS_SERVICE_TYPES.some((t) => t.value === sp.type) ? sp.type : undefined;
   const state = NIGERIAN_STATES.some((s) => s.code === sp.state) ? sp.state : undefined;
+  const orderParam = sp.order && /^[0-9a-f-]{36}$/i.test(sp.order) ? `?order=${sp.order}` : "";
 
   const supabase = await createClient();
   let q = supabase
@@ -61,6 +62,7 @@ export default async function LogisticsDirectoryPage({ searchParams }: { searchP
             ))}
           </Select>
         </div>
+        {orderParam ? <input type="hidden" name="order" value={sp.order} /> : null}
         <Button type="submit">Filter</Button>
       </form>
 
@@ -79,7 +81,7 @@ export default async function LogisticsDirectoryPage({ searchParams }: { searchP
                   {s.temperature_range ? <Badge tone="neutral">{s.temperature_range as string}</Badge> : null}
                 </div>
                 <h2 className="mt-2 text-lg font-semibold text-ocean-950">
-                  <Link href={`/logistics/${s.id as string}`} className="hover:underline">
+                  <Link href={`/logistics/${s.id as string}${orderParam}`} className="hover:underline">
                     {s.title as string}
                   </Link>
                 </h2>

@@ -60,6 +60,9 @@ export function ActionForm({
           if (confirm && !window.confirm(confirm)) return;
           submitted.current = true;
           const formData = new FormData(event.currentTarget);
+          // Include the clicked button's name/value (e.g. intent=publish).
+          const submitter = (event.nativeEvent as SubmitEvent).submitter;
+          if (submitter instanceof HTMLButtonElement && submitter.name) formData.set(submitter.name, submitter.value);
           startTransition(() => dispatch(formData));
         }}
       >
