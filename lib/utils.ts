@@ -68,3 +68,8 @@ export function productImageUrl(supabaseUrl: string, path: string | null | undef
     .map(encodeURIComponent)
     .join("/")}`;
 }
+
+/** ISO range for "the last N days" (kept outside components for render purity). */
+export function lastDaysRange(days: number, now: Date = new Date()): { from: string; to: string } {
+  return { from: new Date(now.getTime() - days * 86_400_000).toISOString(), to: now.toISOString() };
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -66,7 +66,7 @@ export function ListingForm({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setError,
     formState: { errors },
   } = useForm<FormValues>({
@@ -85,7 +85,7 @@ export function ListingForm({
       ...defaults,
     },
   });
-  const pricingType = watch("pricingType");
+  const pricingType = useWatch({ control, name: "pricingType" });
 
   const submit = (intent: "draft" | "publish") =>
     handleSubmit((values) => {

@@ -4,6 +4,7 @@ import { StatCard } from "@/components/charts/bar-chart";
 import { Alert, Card, CardContent, CardHeader, CardTitle, PageHeader } from "@/components/ui/primitives";
 import { formatMinor } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
+import { lastDaysRange } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Operations overview" };
 
@@ -23,8 +24,8 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
   const sp = await searchParams;
   const days = PERIODS[(sp.days ?? "30") as keyof typeof PERIODS] ?? 30;
   const supabase = await createClient();
-  const from = new Date(Date.now() - days * 86_400_000).toISOString();
-  const { data, error } = await supabase.rpc("admin_overview", { p_from: from, p_to: new Date().toISOString() });
+  const range = lastDaysRange(days);
+  const { data, error } = await supabase.rpc("admin_overview", { p_from: range.from, p_to: range.to });
   const o = data as Overview | null;
 
   return (

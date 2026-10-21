@@ -8,7 +8,6 @@ export function safeRedirectPath(target: string | null | undefined, fallback = "
   if (target.length > 500) return fallback;
   if (!target.startsWith("/")) return fallback;
   if (target.startsWith("//") || target.startsWith("/\\")) return fallback;
-  // eslint-disable-next-line no-control-regex
   if (/[\u0000-\u001f\u007f\\]/.test(target)) return fallback;
   try {
     const url = new URL(target, "http://local.invalid");

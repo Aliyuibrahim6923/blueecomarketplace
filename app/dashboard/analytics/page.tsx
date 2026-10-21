@@ -6,7 +6,7 @@ import { requireAnalystOrAdmin } from "@/lib/auth";
 import { LOGISTICS_SERVICE_TYPES } from "@/lib/constants";
 import { formatMinor } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
-import { formatDate } from "@/lib/utils";
+import { formatDate, lastDaysRange } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Blue economy analytics" };
 
@@ -37,10 +37,8 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
   const sp = await searchParams;
   const days = PERIODS[(sp.days ?? "90") as keyof typeof PERIODS] ?? 90;
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("agency_overview", {
-    p_from: new Date(Date.now() - days * 86_400_000).toISOString(),
-    p_to: new Date().toISOString(),
-  });
+  const range = lastDaysRange(days);
+  const { data, error } = await supabase.rpc("agency_overview", { p_from: range.from, p_to: range.to });
   const a = data as Agency | null;
 
   return (
