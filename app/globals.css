@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/*
+ * BlueMarket Nigeria — design tokens
+ * Deep ocean blue, teal, white, restrained coral. System fonts keep pages light
+ * on low-bandwidth connections.
+ */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+
+  --color-ocean-50: #eef6fb;
+  --color-ocean-100: #d6e9f4;
+  --color-ocean-200: #a9d0e7;
+  --color-ocean-300: #74b0d4;
+  --color-ocean-400: #3f8bbb;
+  --color-ocean-500: #1f6d9f;
+  --color-ocean-600: #145683;
+  --color-ocean-700: #0f456b;
+  --color-ocean-800: #0b3654;
+  --color-ocean-900: #082a42;
+  --color-ocean-950: #051b2c;
+
+  --color-teal-50: #ecfbf9;
+  --color-teal-100: #cdf3ee;
+  --color-teal-500: #0e9488;
+  --color-teal-600: #0b7a70;
+  --color-teal-700: #0a625a;
+
+  --color-coral-50: #fff3f0;
+  --color-coral-100: #ffe1da;
+  --color-coral-500: #e8603f;
+  --color-coral-600: #cc4a2b;
+
+  --color-background: #f6f9fb;
+  --color-foreground: #0f1f2d;
+  --color-muted: #eaf0f4;
+  --color-muted-foreground: #4b5d6b;
+  --color-border: #d5e0e7;
+  --color-card: #ffffff;
+  --color-ring: #1f6d9f;
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.375rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  *:focus-visible {
+    outline: 3px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+  .prose-page h2 {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ocean-900);
+  }
+  .prose-page p,
+  .prose-page li {
+    margin-top: 0.75rem;
+    line-height: 1.7;
+    color: #2b3f4e;
+  }
+  .prose-page ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}

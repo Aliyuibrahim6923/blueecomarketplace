@@ -122,7 +122,7 @@ begin
   perform private.audit('business_member_added', 'business', p_business_id::text,
     jsonb_build_object('user_id', v_user, 'role', p_role));
   perform private.notify(v_user, 'business_membership', 'You were added to a business',
-    'You can now help manage this business on BlueMarket.', '/dashboard/supplier/business');
+    'You can now help manage this business on BlueMarket.', '/dashboard/business');
 end;
 $$;
 
@@ -368,7 +368,7 @@ begin
 
   perform private.apply_order_transition(p_order_id, 'disputed', v_actor, 'Dispute opened: ' || replace(p_category::text, '_', ' '));
   perform private.notify_admins('dispute_opened', 'New dispute on order ' || o.order_number,
-    'A dispute needs review.', '/dashboard/admin/disputes/' || v_id);
+    'A dispute needs review.', '/dashboard/disputes/' || v_id);
   return v_id;
 end;
 $$;
@@ -566,7 +566,7 @@ begin
     case p_decision when 'approved' then 'Your business is now verified'
                     when 'rejected' then 'Verification was not approved'
                     else 'More information needed for verification' end,
-    'Open your business profile for details.', '/dashboard/supplier/business');
+    'Open your business profile for details.', '/dashboard/business');
 end;
 $$;
 
@@ -629,7 +629,7 @@ begin
   perform private.audit('business_' || p_status::text, 'business', p_business_id::text, jsonb_build_object('reason', p_reason));
   perform private.notify_business(p_business_id, 'business_status',
     case when p_status = 'active' then 'Your business is active again' else 'Your business has been ' || p_status::text end,
-    'Contact support if you have questions.', '/dashboard/supplier/business');
+    'Contact support if you have questions.', '/dashboard/business');
 end;
 $$;
 

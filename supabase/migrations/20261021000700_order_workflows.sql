@@ -713,7 +713,7 @@ begin
       perform private.audit('payment_amount_mismatch', 'payment_transaction', t.id::text,
         jsonb_build_object('expected', t.amount_minor, 'received', p_amount_minor, 'currency', p_currency), 'failure');
       perform private.notify_admins('payment_mismatch', 'Payment amount mismatch',
-        'A payment did not match its order total and needs review.', '/dashboard/admin/orders/' || o.id);
+        'A payment did not match its order total and needs review.', '/dashboard/orders/' || o.id);
       return 'amount_mismatch';
     end if;
 
@@ -728,7 +728,7 @@ begin
     end if;
     -- Paid after cancellation etc.: keep the record, flag for manual refund.
     perform private.notify_admins('payment_late', 'Payment received for an order not awaiting payment',
-      'Review and refund through the provider if needed.', '/dashboard/admin/orders/' || o.id);
+      'Review and refund through the provider if needed.', '/dashboard/orders/' || o.id);
     return 'paid_but_order_not_awaiting';
   end if;
 
