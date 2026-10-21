@@ -25,6 +25,8 @@ jobs:
   app:
     name: Lint, typecheck, unit tests, build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # only to publish plain-text reports to the ci-reports branch
     env:
       # Placeholders only: the build must not need real credentials.
       NEXT_PUBLIC_SUPABASE_URL: https://placeholder-project.supabase.co
@@ -38,18 +40,45 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: |
-          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
-      - name: Upload lockfile (commit it for reproducible installs)
-        if: ${{ hashFiles('package-lock.json') != '' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: package-lock
-          path: package-lock.json
+          mkdir -p ci-reports
+          if [ -f package-lock.json ]; then npm ci 2>&1 | tee ci-reports/install.txt; else npm install --no-audit --no-fund 2>&1 | tee ci-reports/install.txt; fi
+          npm ls --depth=0 > ci-reports/versions.txt 2>&1 || true
       - name: Lint
-        run: npm run lint
+        id: lint
+        continue-on-error: true
+        run: set -o pipefail; npm run lint 2>&1 | tee ci-reports/lint.txt
       - name: Typecheck
-        run: npm run typecheck
+        id: typecheck
+        continue-on-error: true
+        run: set -o pipefail; npm run typecheck 2>&1 | tee ci-reports/typecheck.txt
       - name: Unit tests
-        run: npm test
+        id: unit
+        continue-on-error: true
+        run: set -o pipefail; npm test 2>&1 | tee ci-reports/unit.txt
       - name: Production build
-        run: npm run build
+        id: build
+        continue-on-error: true
+        run: set -o pipefail; npm run build 2>&1 | tee ci-reports/build.txt
+      - name: Publish reports to the ci-reports branch
+        if: always() && github.event_name == 'push'
+        run: |
+          cp package-lock.json ci-reports/ 2>/dev/null || true
+          cat > ci-reports/summary.txt <<EOF
+          commit: ${GITHUB_SHA}
+          lint: ${{ steps.lint.outcome }}
+          typecheck: ${{ steps.typecheck.outcome }}
+          unit: ${{ steps.unit.outcome }}
+          build: ${{ steps.build.outcome }}
+          EOF
+          cd ci-reports
+          git init -q -b ci-reports
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          git add -A
+          git commit -qm "CI reports for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-reports:ci-reports
+      - name: Fail if any check failed
+        if: steps.lint.outcome != 'success' || steps.typecheck.outcome != 'success' || steps.unit.outcome != 'success' || steps.build.outcome != 'success'
+        run: |
+          echo "lint=${{ steps.lint.outcome }} typecheck=${{ steps.typecheck.outcome }} unit=${{ steps.unit.outcome }} build=${{ steps.build.outcome }}"
+          exit 1
