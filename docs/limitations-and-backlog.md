@@ -7,7 +7,7 @@
 | SQL migrations + seed apply cleanly on PostgreSQL 16 | ✅ verified (`npm run test:db`) |
 | RLS / workflow / storage SQL tests | ✅ ~150 assertions passing |
 | Pure TypeScript logic (money, pricing, state machine, redirects, CSV, webhook HMAC) | ✅ type-checked (strict) and executed |
-| `npm install`, lint, full typecheck, Vitest, `next build` | ⏳ run by GitHub Actions CI — see the latest CI run |
+| `npm install`, ESLint, full strict typecheck, Vitest (61 tests), `next build` (Next.js 16) | ✅ passing in GitHub Actions CI |
 | Playwright end-to-end journeys | ⏳ written; need a local/test Supabase with the seed |
 | Deployed to Vercel | ❌ not deployed — needs Supabase + Vercel credentials |
 
@@ -30,7 +30,8 @@
 11. **Content-Security-Policy** header not yet set (needs nonce plumbing).
 12. **Dispute SLAs and escalation** are documented as pending; no automated reminders.
 13. Hand-written TypeScript row types (`types/domain.ts`); regenerate with `supabase gen types` once a project exists.
-14. Daily cron on Hobby plan means email/SMS copies can be delayed up to a day (in-app is immediate).
+14. No committed `package-lock.json` yet: the lockfile generated in CI was rejected by `npm ci` (optional platform packages). Generate it on a developer machine with `npm install` and commit it.
+15. Daily cron on Hobby plan means email/SMS copies can be delayed up to a day (in-app is immediate).
 
 ## Unresolved product decisions
 
