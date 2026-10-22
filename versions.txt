@@ -1,0 +1,31 @@
+bluemarket-nigeria@0.1.0 /home/runner/work/blueecomarketplace/blueecomarketplace
+├── @emnapi/core@1.10.0 extraneous
+├── @emnapi/runtime@1.11.3 extraneous
+├── @emnapi/wasi-threads@1.2.1 extraneous
+├── @hookform/resolvers@5.9.2
+├── @img/sharp-wasm32@0.35.5 extraneous
+├── @napi-rs/wasm-runtime@1.2.5 extraneous
+├── @playwright/test@1.64.1
+├── @radix-ui/react-slot@1.5.0
+├── @supabase/ssr@0.7.0
+├── @supabase/supabase-js@2.118.0
+├── @tailwindcss/postcss@4.3.3
+├── @tybys/wasm-util@0.10.4 extraneous
+├── @types/node@22.20.5
+├── @types/react-dom@19.3.0
+├── @types/react@19.3.0
+├── class-variance-authority@0.7.1
+├── clsx@2.1.1
+├── eslint-config-next@16.4.2
+├── eslint@9.39.5
+├── next@16.4.2
+├── react-dom@19.3.1
+├── react-hook-form@7.90.0
+├── react@19.3.1
+├── server-only@0.0.1
+├── tailwind-merge@3.7.0
+├── tailwindcss@4.3.3
+├── typescript@5.9.3
+├── vitest@3.2.7
+└── zod@4.6.7
+

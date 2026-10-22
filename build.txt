@@ -1,0 +1,98 @@
+
+> bluemarket-nigeria@0.1.0 build
+> next build
+
+▲ Next.js 16.4.2 (Turbopack)
+✓ Running next.config.ts took 30ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+- Experiments (use with caution):
+  · serverActions
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 8.1s
+  Running TypeScript ...
+  Finished TypeScript in 8.0s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/52) ...
+  Generating static pages using 3 workers (13/52) 
+  Generating static pages using 3 workers (26/52) 
+  Generating static pages using 3 workers (39/52) 
+✓ Generating static pages using 3 workers (52/52) in 423ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /about
+├ ƒ /api/account/export
+├ ƒ /api/admin/export/[report]
+├ ƒ /api/cron/notifications
+├ ƒ /api/health
+├ ƒ /api/payments/callback
+├ ƒ /api/payments/webhook/[provider]
+├ ƒ /auth/callback
+├ ƒ /auth/confirm
+├ ○ /auth/forgot-password
+├ ƒ /auth/reset-password
+├ ƒ /auth/sign-in
+├ ƒ /auth/sign-out
+├ ƒ /auth/sign-up
+├ ƒ /cart
+├ ƒ /categories
+├ ƒ /categories/[slug]
+├ ƒ /dashboard
+├ ƒ /dashboard/account
+├ ƒ /dashboard/admin
+├ ƒ /dashboard/admin/audit
+├ ƒ /dashboard/admin/businesses
+├ ƒ /dashboard/admin/businesses/[id]
+├ ƒ /dashboard/admin/categories
+├ ƒ /dashboard/admin/disputes
+├ ƒ /dashboard/admin/listings
+├ ƒ /dashboard/admin/orders
+├ ƒ /dashboard/admin/reports
+├ ƒ /dashboard/admin/settings
+├ ƒ /dashboard/admin/users
+├ ƒ /dashboard/analytics
+├ ƒ /dashboard/bookings
+├ ƒ /dashboard/bookings/[id]
+├ ƒ /dashboard/business
+├ ƒ /dashboard/disputes
+├ ƒ /dashboard/disputes/[id]
+├ ƒ /dashboard/disputes/new
+├ ƒ /dashboard/enquiries
+├ ƒ /dashboard/enquiries/[id]
+├ ƒ /dashboard/logistics
+├ ƒ /dashboard/logistics/services
+├ ƒ /dashboard/logistics/services/[id]
+├ ƒ /dashboard/logistics/services/new
+├ ƒ /dashboard/notifications
+├ ƒ /dashboard/orders
+├ ƒ /dashboard/orders/[id]
+├ ƒ /dashboard/saved
+├ ƒ /dashboard/supplier
+├ ƒ /dashboard/supplier/listings
+├ ƒ /dashboard/supplier/listings/[id]
+├ ƒ /dashboard/supplier/listings/new
+├ ƒ /for-buyers
+├ ƒ /for-suppliers
+├ ƒ /help
+├ ƒ /how-it-works
+├ ƒ /logistics
+├ ƒ /logistics/[id]
+├ ƒ /market
+├ ƒ /market/p/[id]
+├ ƒ /marketplace
+├ ƒ /marketplace-rules
+├ ƒ /onboarding
+├ ƒ /privacy
+├ ƒ /products/[id]
+├ ƒ /suppliers/[slug]
+└ ƒ /terms
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
