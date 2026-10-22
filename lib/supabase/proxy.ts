@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { publicEnv } from "@/lib/env";
+import { publicEnv, publicEnvIssues } from "@/lib/env";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/onboarding"];
 
@@ -11,6 +11,9 @@ const PROTECTED_PREFIXES = ["/dashboard", "/onboarding"];
  */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
+  // Misconfigured deployment: let the request through so the app can show a
+  // setup message instead of a bare 500 from the middleware.
+  if (publicEnvIssues().length > 0) return response;
   const { supabaseUrl, supabaseKey } = publicEnv();
 
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
@@ -27,9 +30,14 @@ export async function updateSession(request: NextRequest) {
   });
 
   // Do not run code between createServerClient and getUser(): it refreshes the token.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    ({
+      data: { user },
+    } = await supabase.auth.getUser());
+  } catch {
+    // Supabase unreachable: carry on as signed-out rather than failing the request.
+  }
 
   const path = request.nextUrl.pathname;
   if (!user && PROTECTED_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))) {
